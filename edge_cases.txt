@@ -1,0 +1,8 @@
+Edge Cases:
+ - Empty file provided.
+ - File contains characters, but no words.
+ - Last character in file is the end of a word.
+     + I chose to make my program add a single whitespace to the end of the input
+     eliminating the possibility that this edge case will occur.
+ - Last character in file is a non-word character.
+ - Is it possible the the input file could be too big?
