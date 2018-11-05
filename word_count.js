@@ -13,7 +13,7 @@
 
  Words are delimited by characters that are not valid in words.
 
- The current implementation is equipped to handle apostrophes as parts of words,
+ The current implementation is equipped to handle apostrophes,
  however it does not handle single quotes outside of words. This means that
  text files are not allowed to contain the ' character unless it is being used
  as an apostrophe.
@@ -27,7 +27,7 @@ var fs = require('fs');
  * Description: This function opens a text file with the name that was
  passed as a command line argument and counts the number of times each word
  appears in the file. It also keeps track of the starting indices of each
- occurrence of each word. After processing the file, it print each word found
+ occurrence of each word. After processing the file, it prints each word found
  in the file, the number of times it occurred, and the indices where it
  occurred. This function must be passed a testChar function, which will
  determine if a character is allowed to be in a word.
@@ -58,7 +58,7 @@ function wordCount(testChar){
 
 
 /*******************************************************************************
- * Description: This class describes the meta data associated with each word in
+ * Description: This class describes the metadata associated with each word in
  a text file. It is composed of the word's frequency (count) and an array of
  the indices where the word occurs (location).
 *******************************************************************************/
