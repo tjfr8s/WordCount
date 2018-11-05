@@ -1,10 +1,74 @@
-README
+ * Author: Tyler Freitas
+ * Date: 11-05-2018
+ * Description: This file contains a discussion of edge cases and potential
+ improvements/changes that could be made to word_count.js.
+
+Legend:
+ '-' = broad edge case.
+ '+' = specific branch of edge case.
+ '~' = how the edge case was handled.
+
 Edge Cases:
- - Empty file provided.
- - File contains characters, but no words.
- - Last character in file is the end of a word.
-     + I chose to make my program add a single whitespace to the end of the input
-     eliminating the possibility that this edge case will occur.
- - Last character in file is a non-word character.
- - Is it possible the the input file could be too big?
- - Apostrophe
+
+ - An invalid file name is provided.
+    ~ This is handled by checking if fs.readFile produced an error. If
+    it did, then the error's message is displayed.
+
+ - The text uses uppercase and lowercase versions of the same word.
+    ~ Words are counted without considering case. This is accomplished by
+    converting all text to lowercase before processing it.
+
+- The file contains a single character
+    + and the character is valid in words.
+    + and the character is not valid in words.
+        ~ Both of these cases are handled by the two pointer approach to walking
+        through the list of characters.
+
+- The file contains no words
+    + and the file is completely empty.
+    + and the file contains only invalid characters.
+        ~ Both of these cases are handled by the two pointer approach to walking
+        through the list of characters.
+
+- The last character in the file is the end of a word.
+     ~ The while loop in processText() used to walk through the text can
+     potentially not count the last word in the file if that word contains the
+     last character in the file. To handle this case, I chose to add a single
+     whitespace character to the end of each string of text. Doing this
+     transforms this case into the next one (last character in file is
+     a non-word character), which is well handled. Another option would be to
+     add code after the while loop that checks to see if the loop terminated
+     without counting a word.
+
+ - The last character in file is a non-word character.
+     ~ This case is handled well by the two pointer approach to walking
+     through the text.
+
+- File size is too large for fs.readFile.
+    ~ The current implementation is restricted by file size limitations of
+    fs.readFile. If this became an issue file streams could be used instead.
+
+- The file contains single quotes
+    ~ The ' character can cause some trouble because it can be used both as an
+    apostrophe and as a single quote. I chose to allow its use as an apostrophe.
+    The current implementation of wordCount() is not equipped to handle
+    text files containing ' characters that are not apostrophes. In order to
+    handle single quotes and apostrophes the ' character's context must be
+    considered. This could be accomplished by giving the testChar function
+    access to the text and the current character's index. We could then define
+    an apostrophe as a ' character that is preceded and followed by valid
+    characters and a single quote as a ' that is not an apostrophe. This
+    definition would still be imperfect as an apostrophe can be used at the end
+    of a word that ends in an s like in the sentence: James' hair is blond.
+
+- Handling words from a specific language.
+    ~ Currently a word is defined as a string of valid characters (as defined
+    by the function passed in as wordCount()'s testChar argument). The program's
+    functionality could be further extended to check if each word is valid in
+    the english language using a dictionary api like the one found
+    at: https://developer.oxforddictionaries.com/.
+
+- Handling characters with accents and other special special markings.
+   ~ The current implementation only considers the 26 letters in the english
+   alphabet. The program could be modified to consider other characters
+   by changing the ranges allowed in isValidCharacter().
