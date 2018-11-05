@@ -48,6 +48,11 @@ Edge Cases:
     ~ The current implementation is restricted by file size limitations of
     fs.readFile. If this became an issue file streams could be used instead.
 
+- Integer overflow when keeping track of indices.
+    ~ If the file was large enough, overflow could occur while incrementing
+    end. Indices could be recorded as strings instead to enable us to keep track
+    of very large numbers.
+
 - The file contains single quotes
     ~ The ' character can cause some trouble because it can be used both as an
     apostrophe and as a single quote. I chose to allow its use as an apostrophe.
