@@ -1,3 +1,4 @@
+README
 Edge Cases:
  - Empty file provided.
  - File contains characters, but no words.
@@ -6,3 +7,4 @@ Edge Cases:
      eliminating the possibility that this edge case will occur.
  - Last character in file is a non-word character.
  - Is it possible the the input file could be too big?
+ - Apostrophe

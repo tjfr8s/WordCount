@@ -1,5 +1,12 @@
+/*******************************************************************************
+ * Author: Tyler Freitas
+ * Date: 11-05-2018
+ * Description: This program reads in a text file specified by the user as a
+ command line argument. It compiles a list of the words present in the text file
+ along with the number of times each word appears and the starting indeces of
+ each occurrence of each word.
+*******************************************************************************/
 var fs = require('fs');
-
 
 
 /*******************************************************************************
@@ -25,7 +32,7 @@ function wordCount(){
         // If the file read was successful, process the text and display the
         // results.
         else{
-            var wordCounts = processText(data);
+            var wordCounts = processText(data, isValidCharacter);
             displayWordCount(wordCounts);
         }
     });
@@ -44,6 +51,13 @@ class WordMetaData {
     }
 }
 
+/*******************************************************************************
+ * Description: This function tests to see if the character passed as an
+ argument is a valid character in a word.
+*******************************************************************************/
+function isValidCharacter(char){
+    return (char >= 'a' && char <= 'z') || char === '\'';
+}
 
 /*******************************************************************************
  * Description: This function converts a string to lowercase and counts the
@@ -51,12 +65,14 @@ class WordMetaData {
  well as the indices of each occurrence or each word.
  * Preconditions:
     - The function is passed a string.
+    - The function is passed a function to test if a character is allowed to be
+    part of a word.
  * Postconditions:
     - The function returns an object mapping each word to another object
     composed of the number of times the word occurred in the text and an array
     holding the indices where it occured.
 *******************************************************************************/
-function processText(text){
+function processText(text, testChar){
     // Convert the string to lowercase.
     text = text.toLowerCase();
     text += " ";
@@ -70,7 +86,7 @@ function processText(text){
     // and record the word that occurred before that point.
     while(end < text.length){
         // If the current character is alphabetical, extend end.
-        if(text[end] >= 'a' && text[end] <= 'z'){
+        if(testChar(text[end])){
             end++;
         }
         // If the current character is not alphabetical and a word is currently
@@ -109,18 +125,20 @@ function processText(text){
     - The funciton is passed an object that maps words to metadata of type
     WordMetaData.
  * Postconditions:
-    - Each word is displayed along with its metadata.  
+    - Each word is displayed along with its metadata.
 *******************************************************************************/
 function displayWordCount(words){
     for(var word in words){
+        // Create comma separated list of each word's starting indices.
         var locationString = JSON.stringify(words[word].location);
         locationString = locationString.substring(1,locationString.length - 1);
 
         var countString = JSON.stringify(words[word].count);
+        // Output each word, the number of times it occurred, and the list of
+        // its starting indices.
         var outputString = word.padEnd(15, ' ') +
             countString.padEnd(10, ' ') +
             locationString;
-
 
         console.log(outputString);
     }
