@@ -21,14 +21,14 @@ Edge Cases:
 - The file contains a single character
     + and the character is valid in words.
     + and the character is not valid in words.
-        ~ Both of these cases are handled by the two pointer approach to walking
-        through the list of characters.
+        ~ Both of these cases are handled by the two pointer approach used to
+        walk through the text.
 
 - The file contains no words
     + and the file is completely empty.
     + and the file contains only invalid characters.
-        ~ Both of these cases are handled by the two pointer approach to walking
-        through the list of characters.
+        ~ Both of these cases are handled by the two pointer approach used to
+        walk through the text.
 
 - The last character in the file is the end of a word.
      ~ The while loop in processText() used to walk through the text can
@@ -62,7 +62,7 @@ Edge Cases:
     considered. This could be accomplished by giving the testChar function
     access to the text and the current character's index. We could then define
     an apostrophe as a ' character that is preceded and followed by valid
-    characters and a single quote as a ' that is not an apostrophe. This
+    characters and define a single quote as a ' that is not an apostrophe. This
     definition would still be imperfect as an apostrophe can be used at the end
     of a word that ends in an s like in the sentence: James' hair is blond.
 
