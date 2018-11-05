@@ -108,7 +108,7 @@ function processText(text, testChar){
     var words = {};
     var word;
 
-    // Walk through the string until a non-alphabetical character is reached.
+    // Walk through the string until a non-alphabetical character is reached,
     // and record the word that occurred before that point.
     while(end < text.length){
         // If the current character is alphabetical, extend end.
